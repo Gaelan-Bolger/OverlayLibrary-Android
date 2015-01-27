@@ -2,5 +2,4 @@
 <resources>
     <dimen name="notif_test_height">75dp</dimen>
     <dimen name="notif_side_margin">8dp</dimen>
-    <dimen name="notif_test_top_margin">100dp</dimen>
 </resources>
