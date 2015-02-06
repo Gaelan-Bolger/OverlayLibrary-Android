@@ -24,7 +24,7 @@ public class TestOverlayService2 extends BaseOverlayService {
         Log.d(TAG, "getView");
         CardView view = (CardView) LayoutInflater.from(this).inflate(R.layout.notification_test2, parent, false);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        layoutParams.width = getMaximumWidth();
+        layoutParams.width = getNotificationWidth();
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         return view;
     }
@@ -42,25 +42,6 @@ public class TestOverlayService2 extends BaseOverlayService {
     @Override
     protected boolean onSwiped(SwipeDirection direction) {
         Toast.makeText(this, "View swiped, " + direction, Toast.LENGTH_SHORT).show();
-        switch (direction) {
-            case LEFT:
-                animateOutLeft();
-                break;
-            case TOP:
-                animateOutTop(false);
-                break;
-            case RIGHT:
-                animateOutRight();
-                break;
-            case BOTTOM:
-                animateOutTop(true);
-                break;
-        }
         return true;
-    }
-
-    private int getMaximumWidth() {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels);
     }
 }
