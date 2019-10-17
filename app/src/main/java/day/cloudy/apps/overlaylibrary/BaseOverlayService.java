@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
@@ -180,7 +181,8 @@ public abstract class BaseOverlayService extends Service {
     private ViewGroup.LayoutParams getLayoutParams() {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT, getCalculatedTranslationY(),
-                showAboveStatusBar() ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_PRIORITY_PHONE,
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                        : (showAboveStatusBar() ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_PRIORITY_PHONE),
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
                         WindowManager.LayoutParams.FLAG_SPLIT_TOUCH | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 PixelFormat.TRANSLUCENT);
@@ -238,24 +240,24 @@ public abstract class BaseOverlayService extends Service {
     }
 
     /*
-    * true = TYPE_SYSTEM_ERROR; false = TYPE_PRIORITY_PHONE
-    * If set to true HOME button becomes disabled while the View is added to Window
-    * In either case the BACK button is disabled while the View is added to Window
-    * Overcome these limitations by implementing an AccessibilityService and listening for the key presses
+     * true = TYPE_SYSTEM_ERROR; false = TYPE_PRIORITY_PHONE
+     * If set to true HOME button becomes disabled while the View is added to Window
+     * In either case the BACK button is disabled while the View is added to Window
+     * Overcome these limitations by implementing an AccessibilityService and listening for the key presses
      */
     protected boolean showAboveStatusBar() {
         return false;
     }
 
     /*
-    * Whether or not to accept swipe events
+     * Whether or not to accept swipe events
      */
     protected boolean isSwipeEnabled() {
         return false;
     }
 
     /*
-    * Callback for swipe actions
+     * Callback for swipe actions
      */
     protected boolean onSwiped(SwipeDirection direction) {
         return false;
