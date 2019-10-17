@@ -1,12 +1,11 @@
 package day.cloudy.apps.overlaylibrary;
 
-import android.content.Intent;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 
 /**
  * Created by Gaelan on 1/26/2015.
