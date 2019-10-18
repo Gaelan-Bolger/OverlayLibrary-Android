@@ -21,14 +21,8 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".TestOverlayService"
-            android:enabled="true"
-            android:exported="true" />
+        <service android:name=".TestOverlayService" />
 
-        <service
-            android:name=".TestOverlayService2"
-            android:enabled="true"
-            android:exported="true" />
+        <service android:name=".TestOverlayService2" />
     </application>
 </manifest>
