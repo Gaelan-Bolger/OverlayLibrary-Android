@@ -1,5 +1,6 @@
 package day.cloudy.apps.overlaylibrary;
 
+import android.annotation.SuppressLint;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.view.View;
  */
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
-    private View view;
     private final GestureDetector gestureDetector = new GestureDetector(new GestureListener());
 
+    private View view;
+
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouch(final View v, final MotionEvent event) {
         view = v;
         return gestureDetector.onTouchEvent(event);

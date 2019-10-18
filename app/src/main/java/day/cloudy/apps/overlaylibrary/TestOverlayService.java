@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.cardview.widget.CardView;
-
 /**
  * Created by Gaelan on 1/26/2015.
  */
@@ -17,8 +15,7 @@ public class TestOverlayService extends BaseOverlayService {
     @Override
     protected View getView(ViewGroup parent) {
         Log.d(TAG, "getView");
-        CardView view = (CardView) LayoutInflater.from(this).inflate(R.layout.notification_test, parent, false);
-        return view;
+        return LayoutInflater.from(this).inflate(R.layout.notification_test, parent, false);
     }
 
     @Override

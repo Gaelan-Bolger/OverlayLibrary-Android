@@ -2,6 +2,7 @@ package day.cloudy.apps.overlaylibrary;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -29,6 +30,7 @@ import java.util.TimerTask;
 
 import de.greenrobot.event.EventBus;
 
+@SuppressWarnings("unused")
 public abstract class BaseOverlayService extends Service {
 
     private static final String TAG = "BaseOverlayService";
@@ -54,6 +56,7 @@ public abstract class BaseOverlayService extends Service {
     }
 
     private OnSwipeTouchListener mOnSwipeTouchListener = new OnSwipeTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             return super.onTouch(v, event);
@@ -129,9 +132,6 @@ public abstract class BaseOverlayService extends Service {
     public void onEvent(NavigationBarEvent event) {
         animateOutTop(false);
         switch (event.which) {
-            case NavigationBarEvent.BACK:
-                // Do nothing extra
-                break;
             case NavigationBarEvent.HOME:
                 // Seems to work pretty well
                 Intent i = new Intent();
@@ -144,12 +144,14 @@ public abstract class BaseOverlayService extends Service {
                     Log.e(TAG, "No HOME activity found", e);
                 }
                 break;
+            case NavigationBarEvent.BACK:
             case NavigationBarEvent.RECENTS:
                 // Do nothing extra
                 break;
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void addToWindow() {
         Log.d(TAG, "addToWindow");
         if (!mViewAdded) {
@@ -207,12 +209,9 @@ public abstract class BaseOverlayService extends Service {
             mTimer.schedule(mTimerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    mView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mShouldShow = false;
-                            animateOutTop(false);
-                        }
+                    mView.post(() -> {
+                        mShouldShow = false;
+                        animateOutTop(false);
                     });
                 }
             }, getTimeout());
@@ -353,11 +352,11 @@ public abstract class BaseOverlayService extends Service {
 
     public static class NavigationBarEvent {
 
-        public static final int BACK = 0;
-        public static final int HOME = 1;
-        public static final int RECENTS = 2;
+        static final int BACK = 0;
+        static final int HOME = 1;
+        static final int RECENTS = 2;
 
-        public int which;
+        int which;
 
         public NavigationBarEvent(int which) {
             this.which = which;
